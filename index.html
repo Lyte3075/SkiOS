@@ -37,6 +37,15 @@ body{background:#c5d9ee}.wallpaper{position:fixed;inset:0;overflow:hidden;backgr
 .dock-btn.is-running .dot{display:none}
 .window{overscroll-behavior:contain;max-height:calc(100dvh - 116px)}
 @media(max-width:600px){.window{max-height:calc(100dvh - 112px);height:calc(100dvh - 112px);top:44px;width:calc(100vw - 12px);left:6px;transform:none;border-radius:14px}.window-body{padding:14px}.titlebar{touch-action:pan-y;min-height:46px}.win-controls{gap:9px}.win-controls button{width:13px;height:13px;flex-basis:13px;min-width:13px;min-height:13px}}
+
+/* Final title-bar polish: macOS-style controls on the left, with explicit order. */
+.titlebar{position:relative;display:flex;align-items:center;justify-content:center;padding-left:76px;padding-right:14px;min-height:46px}
+.window-title{justify-content:center;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.win-controls{position:absolute!important;left:14px;right:auto;top:50%;transform:translateY(-50%);display:flex!important;flex-direction:row!important;gap:8px!important;direction:ltr!important;z-index:3}
+.win-controls #closeBtn{order:1!important;background:#ff5f57!important}
+.win-controls #minimizeBtn{order:2!important;background:#febc2e!important}
+.win-controls #maximizeBtn{order:3!important;background:#28c840!important}
+@media(max-width:600px){.titlebar{padding-left:72px;padding-right:10px}.win-controls{left:12px!important;gap:8px!important}.window-title{font-size:12px}}
 </style>
 </head>
 <body>
@@ -133,12 +142,14 @@ tick();setInterval(tick,15000);
 const setupScreen=$('#setupScreen');
 let setupStep=0, selectedSetupWall='blue';
 function showSetupStep(n){setupStep=n;document.querySelectorAll('.setup-step').forEach(el=>el.hidden=Number(el.dataset.step)!==n);document.querySelectorAll('.setup-progress i').forEach((el,i)=>el.classList.toggle('active',i<=n));$('#setupHeading').textContent=['Welcome to SkiOS.','Set your atmosphere.','You’re all set.'][n];$('#setupDescription').textContent=['A calm, personal space that feels right from the very first click.','Pick a backdrop and appearance for your new desktop.','Your preferences are ready. Let’s head to your desktop.'][n]}
-function finishSetup(){try{localStorage.setItem('skios-setup-complete','yes');localStorage.setItem('skios-show-welcome',$('#setupWelcome').checked?'yes':'no');localStorage.setItem('skios-dark',$('#setupDark').checked?'yes':'no');localStorage.setItem('skios-wall',selectedSetupWall)}catch(e){}$('.welcome').hidden=!$('#setupWelcome').checked;if($('#setupDark').checked)setDark(true);setWall(selectedSetupWall);setupScreen.hidden=true;notify('Your SkiOS desktop is ready.')}
+function finishSetup(){try{localStorage.setItem('skios-setup-complete','yes');localStorage.setItem('skios-show-welcome',$('#setupWelcome').checked?'yes':'no');localStorage.setItem('skios-dark',$('#setupDark').checked?'yes':'no');localStorage.setItem('skios-wall',selectedSetupWall)}catch(e){}$('.welcome').hidden=!$('#setupWelcome').checked;if($('#setupDark').checked)setDark(true);setWall(selectedSetupWall);setupScreen.hidden=true;setupScreen.style.display='none';notify('Your SkiOS desktop is ready.')}
 document.querySelectorAll('.setup-next').forEach(b=>b.onclick=()=>showSetupStep(Number(b.dataset.next)));
 document.querySelectorAll('.setup-back').forEach(b=>b.onclick=()=>showSetupStep(Number(b.dataset.back)));
 document.querySelectorAll('[data-setup-wall]').forEach(b=>b.onclick=()=>{selectedSetupWall=b.dataset.setupWall;document.querySelectorAll('[data-setup-wall]').forEach(x=>x.classList.toggle('selected',x===b));setWall(selectedSetupWall)});
 $('#finishSetup').onclick=finishSetup;
-$('#skipSetup').onclick=()=>{try{localStorage.setItem('skios-setup-complete','yes')}catch(e){}setupScreen.hidden=true;notify('Welcome to SkiOS.')};
+function dismissSetup(){try{localStorage.setItem('skios-setup-complete','yes')}catch(e){}setupScreen.hidden=true;setupScreen.style.display='none';notify('Welcome to SkiOS.')}
+$('#skipSetup').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();dismissSetup()});
+
 function drawStartGrid(target,query=''){const grid=$(target);if(!grid)return;grid.innerHTML=Object.entries(appMeta).filter(([k,v])=>(k+' '+v.name).toLowerCase().includes(query.toLowerCase())).map(([k,v])=>'<button data-start-app="'+k+'"><span class="app-icon '+v.color+'">'+(icons[k]||'S')+'</span><b>'+v.name+'</b></button>').join('')||'<p class="subtle">No matching apps.</p>';grid.querySelectorAll('[data-start-app]').forEach(b=>b.onclick=()=>{$('#startMenu').hidden=true;$('#taskSearchPanel').hidden=true;openApp(b.dataset.startApp)})}
 $('#startBtn').onclick=()=>{$('#taskSearchPanel').hidden=true;$('#startMenu').hidden=!$('#startMenu').hidden;drawStartGrid('#startGrid')};
 $('#taskSearchBtn').onclick=()=>{$('#startMenu').hidden=true;$('#taskSearchPanel').hidden=!$('#taskSearchPanel').hidden;drawStartGrid('#searchGrid');if(!$('#taskSearchPanel').hidden)$('#taskSearchLive').focus()};
@@ -146,10 +157,10 @@ $('#taskSearchInput').onclick=()=>$('#taskSearchBtn').click();
 $('#taskSearchLive').oninput=e=>drawStartGrid('#searchGrid',e.target.value);
 $('#traySettings').onclick=()=>{$('#startMenu').hidden=true;$('#taskSearchPanel').hidden=true;$('#controlBtn').click()};
 $('#startSettings').onclick=()=>{$('#startMenu').hidden=true;openApp('settings')};
-try{if(localStorage.getItem('skios-setup-complete')!=='yes'){setupScreen.hidden=false;showSetupStep(0)}else{setupScreen.hidden=true;const wall=localStorage.getItem('skios-wall');if(wall)setWall(wall);$('.welcome').hidden=localStorage.getItem('skios-show-welcome')==='no';if(localStorage.getItem('skios-dark')==='yes')setDark(true)}}catch(e){setupScreen.hidden=false;showSetupStep(0)}
+try{if(localStorage.getItem('skios-setup-complete')!=='yes'){setupScreen.hidden=false;setupScreen.style.display='';showSetupStep(0)}else{setupScreen.hidden=true;const wall=localStorage.getItem('skios-wall');if(wall)setWall(wall);$('.welcome').hidden=localStorage.getItem('skios-show-welcome')==='no';if(localStorage.getItem('skios-dark')==='yes')setDark(true)}}catch(e){setupScreen.hidden=false;showSetupStep(0)}
 window.addEventListener('resize',()=>{if(!windowEl.hidden&&!maximized){const r=windowEl.getBoundingClientRect();if(r.right>innerWidth-8)windowEl.style.left=Math.max(8,innerWidth-windowEl.offsetWidth-8)+'px';if(r.bottom>innerHeight-70)windowEl.style.top=Math.max(42,innerHeight-windowEl.offsetHeight-70)+'px'}});
 
-document.addEventListener('keydown',e=>{const mod=e.metaKey||e.ctrlKey;if(e.key==='Escape'){closeMenus();if($('#startMenu'))$('#startMenu').hidden=true;if($('#taskSearchPanel'))$('#taskSearchPanel').hidden=true}if(mod&&e.key.toLowerCase()==='w'){e.preventDefault();closeActiveApp()}if(mod&&e.key.toLowerCase()==='m'){e.preventDefault();minimizeActiveApp()}if(mod&&e.key.toLowerCase()==='k'){e.preventDefault();$('#startMenu').hidden=true;$('#taskSearchPanel').hidden=false;drawStartGrid('#searchGrid');$('#taskSearchLive').focus()}});
+document.addEventListener('keydown',e=>{const mod=e.metaKey||e.ctrlKey;if(e.key==='Escape'&&setupScreen&&!setupScreen.hidden){dismissSetup();return}if(e.key==='Escape'){closeMenus();if($('#startMenu'))$('#startMenu').hidden=true;if($('#taskSearchPanel'))$('#taskSearchPanel').hidden=true}if(mod&&e.key.toLowerCase()==='w'){e.preventDefault();closeActiveApp()}if(mod&&e.key.toLowerCase()==='m'){e.preventDefault();minimizeActiveApp()}if(mod&&e.key.toLowerCase()==='k'){e.preventDefault();$('#startMenu').hidden=true;$('#taskSearchPanel').hidden=false;drawStartGrid('#searchGrid');$('#taskSearchLive').focus()}});
 })();
 </script>
 </body>
