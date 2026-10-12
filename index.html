@@ -46,6 +46,60 @@ body{background:#c5d9ee}.wallpaper{position:fixed;inset:0;overflow:hidden;backgr
 .win-controls #minimizeBtn{order:2!important;background:#febc2e!important}
 .win-controls #maximizeBtn{order:3!important;background:#28c840!important}
 @media(max-width:600px){.titlebar{padding-left:72px;padding-right:10px}.win-controls{left:12px!important;gap:8px!important}.window-title{font-size:12px}}
+
+/* Dark appearance: theme every surface, including newly opened apps and menus. */
+html.dark-mode{--ink:#edf3fc;--muted:#aab9ce;--glass:rgba(25,35,51,.9);--line:#43536a;--shadow:0 22px 70px #0007,0 3px 12px #0004;color-scheme:dark}
+html.dark-mode body{color:var(--ink);background:#111927}
+html.dark-mode .topbar{background:#141e2de8;border-bottom-color:#ffffff18;color:#e8effa}
+html.dark-mode .brand-mark{box-shadow:inset 0 1px 2px #ffffff30}
+html.dark-mode .menulink:hover,html.dark-mode .taskbar-right button:hover{background:#ffffff18}
+html.dark-mode .status{color:#c5d2e5}
+html.dark-mode .desktop-icon{color:#f0f5ff;text-shadow:0 1px 12px #0009}
+html.dark-mode .desktop-icon:hover,html.dark-mode .desktop-icon:focus-visible{background:#ffffff16}
+html.dark-mode .welcome{color:#f0f5ff;text-shadow:0 1px 18px #0007}
+html.dark-mode .eyebrow{color:#bdcce3}
+html.dark-mode .welcome p,html.dark-mode .welcome .date-line{color:#d4e0f1}
+html.dark-mode .dock{background:rgba(17,26,40,.9);border-top-color:#ffffff20;box-shadow:0 -5px 24px #0004}
+html.dark-mode .start-btn{color:#f1f6ff;background:#26364c;border:1px solid #435672}
+html.dark-mode .start-btn:hover{background:#344963}
+html.dark-mode .start-logo{width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(145deg,#8ab9ff,#7869e8);color:#fff}
+html.dark-mode .task-search{background:#263449;border-color:#45556b;color:#c3d0e3}
+html.dark-mode .task-search input{color:#f0f5ff}
+html.dark-mode .dock-btn:hover,html.dark-mode .dock-btn.is-running{background:#ffffff15}
+html.dark-mode .dock-btn span:last-child{color:#d5e0f0}
+html.dark-mode .dock-sep{background:#c3d0e32b}
+html.dark-mode .taskbar-right{color:#e0e9f6}
+html.dark-mode .window{background:rgba(25,35,51,.96);border-color:#506078;color:#edf3fc}
+html.dark-mode .titlebar{background:#ffffff08;border-bottom-color:#ffffff16}
+html.dark-mode .window-body{color:#edf3fc}
+html.dark-mode .section-title,html.dark-mode .window-body h2,html.dark-mode .window-body h3,html.dark-mode .window-title{color:#f1f5fc}
+html.dark-mode .subtle,html.dark-mode .notes-toolbar,html.dark-mode .file-row small{color:#b3c2d7}
+html.dark-mode .search-shell,html.dark-mode .result-card,html.dark-mode .settings-card,html.dark-mode .file-row,html.dark-mode .browser-content,html.dark-mode .calc-display,html.dark-mode .calc-grid button,html.dark-mode .secondary,html.dark-mode .browser-bar input,html.dark-mode .task-search-panel>input{background:#202d40;color:#edf3fc;border-color:#3b4b62}
+html.dark-mode .search-shell input,html.dark-mode .note-area,html.dark-mode .browser-bar input,html.dark-mode .task-search-panel>input{color:#edf3fc}
+html.dark-mode .search-shell input::placeholder,html.dark-mode .note-area::placeholder,html.dark-mode .browser-bar input::placeholder,html.dark-mode .task-search-panel>input::placeholder{color:#9aacc4}
+html.dark-mode .result-card:hover,html.dark-mode .calc-grid button:hover{background:#2b3b51;border-color:#607695}
+html.dark-mode .calc-grid .op{background:#293e5c;color:#b9d2ff}
+html.dark-mode .calc-grid .equal,html.dark-mode .primary{background:#4b83e6;color:#fff;border-color:transparent}
+html.dark-mode .browser-links button{background:#29394f;color:#dce8f8}
+html.dark-mode .menu-pop,html.dark-mode .start-menu,html.dark-mode .task-search-panel{background:#172235f5;border-color:#42536b;color:#edf3fc}
+html.dark-mode .menu-pop button,html.dark-mode .start-grid button{color:#edf3fc}
+html.dark-mode .menu-pop button:hover,html.dark-mode .start-grid button:hover{background:#ffffff16}
+html.dark-mode .menu-pop .menu-rule,html.dark-mode .start-footer{border-color:#ffffff1d}
+html.dark-mode .start-grid button{background:#ffffff09}
+html.dark-mode .swatch{border-color:#263449;box-shadow:0 0 0 1px #657790}
+html.dark-mode .switch{background:#59677a}
+html.dark-mode .switch.on{background:#4b83e6}
+html.dark-mode .toast{background:#080e18f5;border-color:#ffffff30}
+html.dark-mode .setup-screen{background:linear-gradient(145deg,#111d30f5,#1d2b43f5 48%,#273957f5)}
+html.dark-mode .setup-card{background:#19263af5;border-color:#53647b;color:#edf3fc}
+html.dark-mode .setup-card h1,html.dark-mode .setup-step h2{color:#f2f6fc}
+html.dark-mode .setup-card .subtle,html.dark-mode .setup-option small{color:#b4c3d8}
+html.dark-mode .setup-progress i{background:#3b4b62}
+html.dark-mode .setup-themes button{background:#202f44;border-color:#3b4b62;color:#edf3fc}
+html.dark-mode .setup-option{border-top-color:#ffffff1c}
+html.dark-mode .setup-skip{color:#bac9dd}
+html.dark-mode .power-screen{background:#0c1421}
+@media(max-width:600px){html.dark-mode .window{background:rgba(25,35,51,.98)}}
 </style>
 </head>
 <body>
@@ -65,7 +119,7 @@ body{background:#c5d9ee}.wallpaper{position:fixed;inset:0;overflow:hidden;backgr
   <button class="desktop-icon" data-open="settings"><span class="app-icon slate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="m19 13 2 1-2 4-2-1-2 1v2H9v-2l-2-1-2 1-2-4 2-1v-2l-2-1 2-4 2 1 2-1V4h6v2l2 1 2-1 2 4-2 1z"/></svg></span>Settings</button>
  </div>
 </main>
-<div class="dock-wrap"><nav class="dock" aria-label="Taskbar" id="dock"><div class="taskbar-left"><button class="start-btn" id="startBtn" aria-label="Open Start menu"><span class="start-logo"><i></i><i></i><i></i><i></i></span><span class="start-label">Start</span></button><button class="task-search" id="taskSearchBtn" aria-label="Search apps">⌕ <input id="taskSearchInput" placeholder="Search apps and settings" readonly></button></div><div class="taskbar-apps">
+<div class="dock-wrap"><nav class="dock" aria-label="Taskbar" id="dock"><div class="taskbar-left"><button class="start-btn" id="startBtn" aria-label="Open Start menu"><span class="start-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.5 14.7 9.3 21.5 12 14.7 14.7 12 21.5 9.3 14.7 2.5 12 9.3 9.3Z" fill="currentColor"/><circle cx="19.5" cy="4.5" r="1.5" fill="currentColor"/></svg></span><span class="start-label">SkiOS</span></button><button class="task-search" id="taskSearchBtn" aria-label="Search apps">⌕ <input id="taskSearchInput" placeholder="Search apps and settings" readonly></button></div><div class="taskbar-apps">
  <button class="dock-btn" data-open="finder" aria-label="Open Finder"><span class="app-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3z"/><path d="M3 10h18"/></svg></span><span>Finder</span></button>
  <button class="dock-btn" data-open="browser" aria-label="Open Browser"><span class="app-icon mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><span>Browser</span></button>
  <button class="dock-btn" data-open="notes" aria-label="Open Notes"><span class="app-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><span>Notes</span></button>
@@ -121,7 +175,7 @@ function wireApp(app){
 }
 function toggleButton(el,on){el.classList.toggle('on',on);el.setAttribute('aria-pressed',String(on))}
 function setWall(name){const w=$('#wallpaper');const styles={blue:['#d8e7f7','#b8d1ed','#8daee0'],sunset:['#ffe2ce','#f4c1c8','#d99bb5'],forest:['#d5eee0','#a8d7c5','#76b8a7'],violet:['#e6defe','#c6bff0','#9299dc']};const a=styles[name]||styles.blue;document.documentElement.style.setProperty('--wall1',a[0]);document.documentElement.style.setProperty('--wall2',a[1]);document.documentElement.style.setProperty('--wall3',a[2]);notify('Wallpaper updated.')}
-function setDark(on){dark=on;document.documentElement.style.colorScheme=on?'dark':'light';document.documentElement.style.setProperty('--ink',on?'#edf3fc':'#182333');document.documentElement.style.setProperty('--muted',on?'#aab9ce':'#68778a');document.documentElement.style.setProperty('--glass',on?'rgba(26,37,54,.86)':'rgba(250,252,255,.76)');document.querySelectorAll('.window').forEach(w=>{w.style.background=on?'rgba(28,39,56,.92)':'rgba(250,252,255,.88)';w.style.color=on?'#edf3fc':''});document.querySelectorAll('.window-body .settings-card,.window-body .result-card,.window-body .file-row,.window-body .browser-content,.window-body .calc-display').forEach(e=>{e.style.background=on?'#26364b':' ';e.style.color=on?'#edf3fc':''});const s=$('#darkSwitch');if(s)toggleButton(s,on);notify(on?'Dark appearance enabled.':'Light appearance enabled.')}
+function setDark(on){dark=on;document.documentElement.classList.toggle('dark-mode',on);document.documentElement.style.colorScheme=on?'dark':'light';const s=$('#darkSwitch');if(s)toggleButton(s,on);notify(on?'Dark appearance enabled.':'Light appearance enabled.')}
 document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>{const app=b.dataset.open;if(activeApp===app&&!windowEl.hidden){minimizeActiveApp();return}openApp(app)}));
 $('#systemMenuBtn').onclick=()=>{$('#controlMenu').hidden=true;$('#systemMenu').hidden=!$('#systemMenu').hidden};
 $('#controlBtn').onclick=()=>{$('#systemMenu').hidden=true;$('#controlMenu').hidden=!$('#controlMenu').hidden};
