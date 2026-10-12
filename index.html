@@ -100,6 +100,16 @@ html.dark-mode .setup-option{border-top-color:#ffffff1c}
 html.dark-mode .setup-skip{color:#bac9dd}
 html.dark-mode .power-screen{background:#0c1421}
 @media(max-width:600px){html.dark-mode .window{background:rgba(25,35,51,.98)}}
+
+html.dark-mode .wallpaper{background:linear-gradient(145deg,#111827,#1b2638 50%,#202d42)}
+html.dark-mode .wallpaper:before{opacity:.2}
+html.dark-mode .wallpaper:after{opacity:.16}
+html.dark-mode .start-logo{width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(145deg,#8ab9ff,#7869e8);color:#fff}
+html.dark-mode .start-logo svg{width:17px;height:17px}
+.start-logo{width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:linear-gradient(145deg,#78aaf8,#6b65d9);color:#fff}
+.start-logo svg{width:17px;height:17px}
+.start-btn{border:1px solid #d9e4f4;background:rgba(255,255,255,.66);border-radius:12px;box-shadow:0 2px 7px #29456b0d}
+.start-btn:hover{background:#fff;border-color:#b9cdf0}
 </style>
 </head>
 <body>
@@ -175,7 +185,7 @@ function wireApp(app){
 }
 function toggleButton(el,on){el.classList.toggle('on',on);el.setAttribute('aria-pressed',String(on))}
 function setWall(name){const w=$('#wallpaper');const styles={blue:['#d8e7f7','#b8d1ed','#8daee0'],sunset:['#ffe2ce','#f4c1c8','#d99bb5'],forest:['#d5eee0','#a8d7c5','#76b8a7'],violet:['#e6defe','#c6bff0','#9299dc']};const a=styles[name]||styles.blue;document.documentElement.style.setProperty('--wall1',a[0]);document.documentElement.style.setProperty('--wall2',a[1]);document.documentElement.style.setProperty('--wall3',a[2]);notify('Wallpaper updated.')}
-function setDark(on){dark=on;document.documentElement.classList.toggle('dark-mode',on);document.documentElement.style.colorScheme=on?'dark':'light';const s=$('#darkSwitch');if(s)toggleButton(s,on);notify(on?'Dark appearance enabled.':'Light appearance enabled.')}
+function setDark(on){dark=on;document.documentElement.classList.toggle('dark-mode',on);document.documentElement.style.colorScheme=on?'dark':'light';try{localStorage.setItem('skios-dark',on?'yes':'no')}catch(e){}const s=$('#darkSwitch');if(s)toggleButton(s,on);notify(on?'Dark appearance enabled.':'Light appearance enabled.')}
 document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>{const app=b.dataset.open;if(activeApp===app&&!windowEl.hidden){minimizeActiveApp();return}openApp(app)}));
 $('#systemMenuBtn').onclick=()=>{$('#controlMenu').hidden=true;$('#systemMenu').hidden=!$('#systemMenu').hidden};
 $('#controlBtn').onclick=()=>{$('#systemMenu').hidden=true;$('#controlMenu').hidden=!$('#controlMenu').hidden};
